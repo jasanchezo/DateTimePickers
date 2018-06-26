@@ -24,7 +24,8 @@ import android.support.annotation.NonNull
  */
 class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
 
-    override fun onCreateDialog(savedInstanceState: Bundle): Dialog {
+    // POR DEFECTO LA VARIABLE savedInstanceState SE CREA COMO Bundle. SE CREA DE TIPO Bundle?
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val c = Calendar.getInstance()
         val year = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH)
@@ -34,6 +35,9 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, day: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        // Set the activity to the Main Activity.
+        val activity = activity as MainActivity
+        // Invoke Main Activity's processDatePickerResult() method.
+        activity.processDatePickerResult(year, month, day)
     }
 }

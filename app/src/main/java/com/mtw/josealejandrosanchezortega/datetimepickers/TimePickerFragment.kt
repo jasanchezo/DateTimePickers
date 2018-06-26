@@ -32,7 +32,8 @@ private const val ARG_PARAM2 = "param2"
  */
 class TimePickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener {
 
-    override fun onCreateDialog(savedInstanceState: Bundle): Dialog {
+    // POR DEFECTO LA VARIABLE savedInstanceState SE CREA COMO Bundle. SE CREA DE TIPO Bundle?
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // Use the current time as the default values for the picker.
         val c = Calendar.getInstance()
         val hour = c.get(Calendar.HOUR_OF_DAY)
@@ -40,11 +41,13 @@ class TimePickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener 
 
         // Create a new instance of TimePickerDialog and return it.
         // REFERENCIA DEL FORMATO DE 24 HORAS: https://stackoverflow.com/questions/41507754/cannot-resolve-method-dateformat-is24hourformat-in-timepickerdialog
-        return TimePickerDialog(getActivity(), this, hour, minute,
-                android.text.format.DateFormat.is24HourFormat(getActivity()))
+        return TimePickerDialog(getActivity(), this, hour, minute, android.text.format.DateFormat.is24HourFormat(getActivity()))
     }
 
     override fun onTimeSet(view: TimePicker, hourOfDay: Int, minute: Int) {
-        // Do something with the time chosen by the user.
+        // Set the activity to the Main Activity.
+        val activity = activity as MainActivity
+        // Invoke Main Activity's processTimePickerResult() method.
+        activity.processTimePickerResult(hourOfDay, minute)
     }
 }
